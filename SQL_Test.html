@@ -130,7 +130,7 @@
                 // 1. 發出請求：去跟 data.json 這個檔案要資料
                 // fetch 就像是派一個快遞員去拿貨
                 // const response = await fetch('../data.json');
-                const response = await fetch('/JSON./data.json');
+                const response = await fetch('https://ulysses-li.github.io/Nine-9/JSON/data.json');
 
                 // 2. 轉換格式：快遞拿回來的東西是純文字，我們要把它轉成 JavaScript 看得懂的物件 (JSON)
                 const data = await response.json();
@@ -271,3 +271,4 @@
 
 
 </html>
+
