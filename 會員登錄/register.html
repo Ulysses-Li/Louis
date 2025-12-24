@@ -48,13 +48,13 @@
                 <div class="invalid-feedback">請再次輸入密碼。</div>
               </div>
 
-              <button class="btn btn-success w-100 py-2" type="submit">建立帳戶</button>
+              <button id="btnSubmit" class="btn btn-success w-100 py-2" type="submit">建立帳戶</button>
 
               <div class="text-center mt-3 small">
                 已有帳號？ <a href="login.html" class="text-decoration-none">返回登入</a>
               </div>
 
-              <div id="msg" class="mt-3"></div>
+              <div id="msg" class="mt-3" role="alert" style="display:none;"></div>
             </form>
           </div>
         </div>
@@ -70,63 +70,138 @@
      * 1) 先填 Apps Script /exec
      * 2) 若 GitHub Pages 遇到 CORS，改填 Cloudflare Worker URL（.workers.dev）
      */
-     const API_URL = "https://script.google.com/macros/s/AKfycbzbjC0eT3XW1RStUf3mkI7EvJD7yZ3_w8MG1Tw8yt7P_UHds4KrhVahHzi3r6djyYiH/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzbjC0eT3XW1RStUf3mkI7EvJD7yZ3_w8MG1Tw8yt7P_UHds4KrhVahHzi3r6djyYiH/exec";
 
+    // ====== UI refs ======
     document.getElementById('yy').textContent = new Date().getFullYear();
     const f = document.getElementById('f');
     const msg = document.getElementById('msg');
+    const btn = document.getElementById('btnSubmit');
 
+    // ====== helpers ======
     function showMsg(type, text) {
-      msg.className = `alert alert-${type}`;
+      msg.style.display = "block";
+      msg.className = `mt-3 alert alert-${type}`;
       msg.textContent = text;
     }
 
-    async function callApi(payload) {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
-
-      const text = await res.text();
-      try { return JSON.parse(text); }
-      catch { return { ok: false, message: "回傳不是 JSON：" + text }; }
+    function hideMsg() {
+      msg.style.display = "none";
+      msg.textContent = "";
+      msg.className = "mt-3";
     }
 
+    function isLikelyCorsContext() {
+      // GitHub Pages / 本機 file:// 常見 CORS 環境
+      return location.protocol === "file:" || location.hostname.endsWith("github.io");
+    }
+
+    async function callApi(payload, { timeoutMs = 12000 } = {}) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        // Apps Script 有時會回 200，但內容是 HTML/文字（錯誤頁）
+        const text = await res.text();
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = null;
+        }
+
+        // 若 HTTP 非 2xx，也回報原文方便除錯
+        if (!res.ok) {
+          return {
+            ok: false,
+            message: `HTTP ${res.status} ${res.statusText}，回傳：` + (text ? text.slice(0, 200) : "(empty)")
+          };
+        }
+
+        // 不是 JSON 就把原始回傳帶出去
+        if (!data) {
+          return {
+            ok: false,
+            message: "回傳不是 JSON（可能是 Apps Script 錯誤頁 / 權限頁 / CORS）。回傳： " + (text ? text.slice(0, 200) : "(empty)")
+          };
+        }
+
+        return data;
+      } catch (err) {
+        // Abort / network / CORS
+        if (err && err.name === "AbortError") {
+          return { ok: false, message: `連線逾時（>${timeoutMs/1000}s）。可能是網路慢或服務沒回應。` };
+        }
+        return {
+          ok: false,
+          message: "請求失敗：" + (err && err.message ? err.message : err) +
+            (isLikelyCorsContext() ? "（你在 GitHub Pages / 本機環境，若看到 CORS，建議用 Cloudflare Worker 當代理）" : "")
+        };
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function setBusy(isBusy) {
+      btn.disabled = isBusy;
+      btn.textContent = isBusy ? "建立中…" : "建立帳戶";
+    }
+
+    // ====== submit ======
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!f.checkValidity()) { f.classList.add('was-validated'); return; }
+      hideMsg();
 
+      if (!f.checkValidity()) {
+        f.classList.add('was-validated');
+        showMsg("warning", "請先把表單必填/格式錯誤修正。");
+        return;
+      }
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
       const p1 = document.getElementById('password').value;
       const p2 = document.getElementById('password2').value;
+
       if (p1 !== p2) {
         showMsg("danger", "兩次輸入的密碼不一致。");
         return;
       }
 
-      showMsg("info", "建立中…");
+      const payload = { action: "register", username, email, password: p1 };
 
-      const payload = {
-        action: "register",
-        username: document.getElementById('username').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        password: p1
-      };
+      setBusy(true);
+      showMsg("info", "送出中…");
 
-      try {
-        const data = await callApi(payload);
+      const data = await callApi(payload);
 
-        if (data && data.ok) {
-          showMsg("success", data.message || "建立成功！請返回登入。");
-          // ✅ 建立成功後可自動跳回登入頁
-          // setTimeout(() => window.location.href = "login.html", 800);
-        } else {
-          showMsg("danger", (data && data.message) || "建立失敗。");
-        }
-      } catch (err) {
-        showMsg("danger", (err && err.message) ? err.message : "建立失敗（可能是 CORS / 網路問題）");
+      if (data && data.ok) {
+        showMsg("success", data.message || "建立成功！請返回登入。");
+        // ✅ 建立成功後可自動跳回登入頁（需要就打開）
+        // setTimeout(() => window.location.href = "login.html", 800);
+        f.reset();
+        f.classList.remove('was-validated');
+      } else {
+        showMsg("danger", (data && data.message) ? data.message : "建立失敗。");
       }
+
+      setBusy(false);
     });
+
+    /**
+     * 註解（用途）：
+     * - callApi(): 加入 timeout、解析 JSON、把非 JSON 回傳也顯示出來方便除錯
+     * - isLikelyCorsContext(): 偵測 GitHub Pages / file://，提示可能 CORS
+     * - setBusy(): 送出期間鎖住按鈕避免連點
+     */
   </script>
 </body>
 </html>
