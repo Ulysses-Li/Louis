@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CHENG-WEI, LI｜個人作品集</title>
+  <meta name="description" content="自傳、生活照、技能、作品與聯絡方式的個人網站。" />
+  <meta property="og:title" content="CHENG-WEI, LI｜個人作品集" />
+  <meta property="og:description" content="自傳、生活照、技能、作品與聯絡方式的個人網站。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://placehold.co/1200x630" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0d6efd;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-feature-settings: "palt";
+    }
+
+    .navbar {
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(13, 110, 253, .12), transparent),
+        radial-gradient(1000px 500px at 90% 30%, rgba(32, 201, 151, .12), transparent);
+      padding-top: 6rem;
+      padding-bottom: 4rem;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+    }
+
+    .tag {
+      border: 1px solid rgba(0, 0, 0, .08);
+      padding: .4rem .6rem;
+      border-radius: 999px;
+    }
+
+    .section-title {
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .card {
+      border: 1px solid rgba(0, 0, 0, .06);
+    }
+
+    .work-thumb {
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .gallery img {
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: .75rem;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      filter: brightness(.95);
+      color: #fff;
+    }
+
+    .work-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+
+
+    .avatar-box {
+      width: 300px;
+      /* 固定 300 */
+      height: 200px;
+      /* 固定 200 */
+      border-radius: 12px;
+      /* 圓角 */
+      background: center/cover no-repeat;
+      /* 置中 + 等比裁切填滿 */
+      background-image: url('https://photos.google.com/share/AF1QipNiTVs21anQDZpLdtclenGBcjCs7G6KTIsHftLjzXAQweu2JfHPo68OM3FxxiEWWA/photo/AF1QipPYs8YOe-IHlvZ0PStftatYQsBDktP0HbLDzntg?key=bHpzQVIwN1Fqbm5MX3N4VE5uQ0wxZkRKSE9ab0x3');
+      /* ←換成你的圖片路徑或 lh3 直連 */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">CHENG-WEI, LI</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#about">自傳</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">技能</a></li>
+          <li class="nav-item"><a class="nav-link" href="#works">作品</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">生活照</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">聯絡</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-6 text-center text-lg-start">
+          <span class="tag">#Portfolio #Resume</span>
+          <h1 class="display-5 fw-bold mt-3">嗨，我是 <span class="text-primary">CHENG-WEI, LI</span></h1>
+          <p class="lead text-body-secondary">在製造與軟體之間搭橋的 CNC × 前端工程師，聽得懂現場需求，也寫得出工具。專注刀具資料與切削參數數位化，讓流程更快、更穩、更可量化。</p>
+          <div class="d-flex gap-2 justify-content-center justify-content-lg-start">
+            <a href="#works" class="btn btn-accent btn-lg"><i class="bi bi-lightning-charge"></i> 看作品</a>
+            <a href="#contact" class="btn btn-outline-secondary btn-lg"><i class="bi bi-envelope"></i> 聯絡我</a>
+          </div>
+          <div class="d-flex gap-3 mt-3 justify-content-center justify-content-lg-start">
+            <a class="text-decoration-none" href="https://github.com/Ulysses-Li" target="_blank" rel="noopener"><i
+                class="bi bi-github"></i> GitHub</a>
+            <a class="text-decoration-none" href="https://www.linkedin.com/" target="_blank" rel="noopener"><i
+                class="bi bi-linkedin"></i> LinkedIn</a>
+            <a class="text-decoration-none" href="#contact"><i class="bi bi-at"></i> Email</a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 text-center">
+          <img class="" src="https://placehold.co/300x300" alt="個人頭像">
+          <!-- <img class="avatar" src="https://placehold.co/300x300" alt="個人頭像"> -->
+
+          <!-- <img class="" src="https://photos.google.com/share/AF1QipNiTVs21anQDZpLdtclenGBcjCs7G6KTIsHftLjzXAQweu2JfHPo68OM3FxxiEWWA/photo/AF1QipPYs8YOe-IHlvZ0PStftatYQsBDktP0HbLDzntg?key=bHpzQVIwN1Fqbm5MX3N4VE5uQ0wxZkRKSE9ab0x3"> -->
+          <!-- <img class=""
+            src="https://photos.google.com/share/AF1QipNiTVs21anQDZpLdtclenGBcjCs7G6KTIsHftLjzXAQweu2JfHPo68OM3FxxiEWWA/photo/AF1QipPYs8YOe-IHlvZ0PStftatYQsBDktP0HbLDzntg?key=bHpzQVIwN1Fqbm5MX3N4VE5uQ0wxZkRKSE9ab0x3"
+            alt="個人頭像" width="300" height="200"
+            style="width:300px;height:200px;object-fit:cover;object-position:center;border-radius:12px;" loading="lazy"
+            decoding="async"> -->
+          <!-- <div class="avatar-box" role="img" aria-label="個人頭像"></div> -->
+          <!-- <div class="avatar-box"
+            style="background-image:url('https://lh3.googleusercontent.com/你的直連...=w300-h200-c');">
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About / 自傳 -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <h2 class="section-title h1 mb-4">自傳</h2>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="p-4 bg-body rounded-4 shadow-sm">
+            <p>在這段落撰寫你的成長背景、學經歷與專業興趣（建議 200–400 字）。例如：我畢業於 XXX，曾在製造業擔任產品工程師，負責 CNC 加工參數最佳化與刀具管理系統導入。目前專注於前端開發與工業數位化解決方案。
+            </p>
+            <p>可補充 2–3 個代表性成就（有數字最好）：如「將刀具壽命提升 18%」、「縮短報價時間 40%」。</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-geo-alt"></i> 基地：台中、太平</li>
+            <li class="list-group-item"><i class="bi bi-translate"></i> 語言：中文、英文</li>
+            <li class="list-group-item"><i class="bi bi-mortarboard"></i> 學歷：國立勤益科技大學 機械系</li>
+            <li class="list-group-item"><i class="bi bi-briefcase"></i> 現職：產品工程 / 前端開發</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills / 技能 -->
+  <section id="skills" class="py-5 bg-body-tertiary">
+    <div class="container">
+      <h2 class="section-title h1 mb-4">技能</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-terminal"></i> 前端與程式</h5>
+              <p class="mb-2 text-body-secondary">熟悉 HTML、CSS、JavaScript、Bootstrap、C# .NET、SQL。</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">C#</span>
+                <span class="tag">SQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-gear"></i> 製造與 CNC</h5>
+              <p class="mb-2 text-body-secondary">刀具選擇、切削參數、Fanuc 宏程式、CAM/後處理。</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="tag">FANUC Macro</span>
+                <span class="tag">Mastercam/HyperMill</span>
+                <span class="tag">Tool Preset</span>
+                <span class="tag">Cutting Data</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-graph-up"></i> 成果指標</h5>
+              <ul class="mb-0">
+                <li>刀具壽命 +18%</li>
+                <li>加工週期 -12%</li>
+                <li>報價速度 +40%</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works / 作品 -->
+  <section id="works" class="py-5">
+    <div class="container">
+      <h2 class="section-title h1 mb-4">作品</h2>
+      <div class="row g-4">
+        <!-- Work Card 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 rounded-4">
+            <img class="work-thumb" src="https://placehold.co/800x450" alt="作品縮圖">
+            <div class="card-body">
+              <h5 class="card-title">NC Helix Drill Zigzag G-code Generator</h5>
+              <p class="card-text text-body-secondary">以 HTML/Bootstrap/JS 製作的 G-code 產生工具，支援刀具選擇、參數計算與 Zigzag 策略。</p>
+              <div class="d-flex gap-2">
+                <a href="#" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-box-arrow-up-right"></i> Demo</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-github"></i> Source</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Work Card 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 rounded-4">
+            <!-- <img class="work-thumb" src="https://placehold.co/800x450" alt="作品縮圖"> -->
+            <a href="https://ulysses-li.github.io/Threads/Website/index.html" class="d-block" target="_blank"
+              rel="noopener">
+              <!-- <img class="work-thumb card-img-top" src="https://placehold.co/800x450" alt="作品縮圖"> -->
+              <img class="work-thumb card-img-top" src="https://nine9.jic-tools.com.tw/upload_files/products/MCC_Mill/_big_/MCC_threading_mills.jpg" alt="作品縮圖">
+
+            </a>
+            <div class="card-body position-relative">
+              <h5 class="card-title">Thread Milling 計算工具</h5>
+              <p class="card-text text-body-secondary">快速選擇螺紋規格與刀具，給出建議 Vc / N / Vf 與 G-code 範例。</p>
+              <a href="https://ulysses-li.github.io/Threads/Website/index.html" class="stretched-link" target="_blank"
+                rel="noopener"></a>
+              <div class="d-flex gap-2">
+                <a href="https://ulysses-li.github.io/Threads/Website/index.html"
+                  class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-box-arrow-up-right"></i> Demo</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-github"></i> Source</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Work Card 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 rounded-4">
+            <img class="work-thumb" src="https://placehold.co/800x450" alt="作品縮圖">
+            <div class="card-body">
+              <h5 class="card-title">Z 軸外部量測小工具</h5>
+              <p class="card-text text-body-secondary">以 C# .NET 製作的桌面應用，15 秒內完成單刀長度量測與紀錄。</p>
+              <div class="d-flex gap-2">
+                <a href="#" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-box-arrow-up-right"></i> Demo</a>
+                <a href="#" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i
+                    class="bi bi-github"></i> Source</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery / 生活照 -->
+  <section id="gallery" class="py-5 bg-body-tertiary">
+    <div class="container">
+      <h2 class="section-title h1 mb-4">生活照</h2>
+      <div class="row g-3 gallery">
+        <!-- 將下面 img 的 src 換成你的生活照 URL（建議 800x800 以上） -->
+        <div class="col-6 col-md-3"><img class="w-100" src="https://placehold.co/800" alt="生活照 1"></div>
+        <div class="col-6 col-md-3"><img class="w-100" src="https://placehold.co/800" alt="生活照 2"></div>
+        <div class="col-6 col-md-3"><img class="w-100" src="https://placehold.co/800" alt="生活照 3"></div>
+        <div class="col-6 col-md-3"><img class="w-100" src="https://placehold.co/800" alt="生活照 4"></div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Contact / 聯絡方式 -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <h2 class="section-title h1 mb-4">聯絡方式</h2>
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="p-4 bg-body rounded-4 shadow-sm h-100">
+            <h5 class="fw-bold">聯絡資訊</h5>
+            <ul class="list-unstyled mt-3 mb-0">
+              <li class="mb-2"><i class="bi bi-envelope"></i> Email：<a
+                  href="mailto:louis962911@gmail.com">louis962911@gmail.com</a></li>
+              <li class="mb-2"><i class="bi bi-telephone"></i> Phone：<a href="tel:+886976811888">+886-976-811-888</a>
+              </li>
+              <li class="mb-2"><i class="bi bi-geo"></i> 地區：台中</li>
+              <li class="mb-2"><i class="bi bi-link-45deg"></i> 其他：<a href="#">Linktree / 部落格</a></li>
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-line"></i> Line：
+                <a href="https://line.me/ti/p/P0eXqNnDh-" target="_blank">加入好友</a>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-4 bg-body rounded-4 shadow-sm">
+            <h5 class="fw-bold">留言給我</h5>
+            <!-- 若你沒有後端，可改用 Formspree / Google Forms；這裡先做 mailto 範例 -->
+             
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">你的名字</label>
+                  <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">訊息</label>
+                  <textarea class="form-control" id="message" rows="4" required></textarea>
+                </div>
+                <div class="col-12 d-grid d-sm-flex gap-2">
+                  <button type="submit" class="btn btn-accent"><i class="bi bi-send"></i> 送出</button>
+                  <a class="btn btn-outline-secondary" href="#home"><i class="bi bi-arrow-up"></i> 回到頂部</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-4 text-center text-body-secondary">
+    <div class="container small">
+      © <span id="year"></span> CHENG-WEI, LI. 以 Bootstrap 5 製作。
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // 動態年份
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // 簡易 mailto 表單提交（沒有後端時可用）
+      document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const subject = encodeURIComponent('網站留言 - ' + name);
+        const body = encodeURIComponent(`來自：${name}\nEmail：${email}\n\n訊息：\n${message}`);
+        window.location.href = `mailto:louis962911@gmail.com?subject=${subject}&body=${body}`;
+      });
+    </script>
+</body>
+
+</html>
